@@ -59,4 +59,8 @@ public class MySimpleNotesArrayList implements Parcelable {
     public SimpleNote getNote(int index) {
         return notesArrayList.get(index); //todo сделать проверку на выход за границы
     }
+
+    public int getLength() {
+        return notesArrayList.size();
+    }
 }

@@ -15,7 +15,8 @@ import android.widget.TextView;
 public class NoteTitles extends Fragment {
 
     private static final String CURRENT_NOTE = "current_note";
-    private SimpleNote currentNote;
+    private static final String MY_SIMPLE_ARRAY_LIST = "my_simple_array_list";
+    private SimpleNote currentNote;;
 
     public NoteTitles() {
         // Required empty public constructor
@@ -23,9 +24,11 @@ public class NoteTitles extends Fragment {
 
     public static NoteTitles newInstance(MySimpleNotesArrayList param1) {
         NoteTitles fragment = new NoteTitles();
+
         Bundle args = new Bundle();
-        args.putParcelable(CURRENT_NOTE, param1);
+        args.putParcelable(MY_SIMPLE_ARRAY_LIST, param1);
         fragment.setArguments(args);
+
         return fragment;
     }
 
@@ -49,13 +52,26 @@ public class NoteTitles extends Fragment {
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
-        MySimpleNotesArrayList tempList = MainActivity.testNotes; //todo брать этот список не из активити
-        currentNote = tempList.getNote(0);
-        TextView textView = new TextView(getContext());
-        textView.setTextSize(30f);
-        textView.setText(currentNote.getTitle());
+        initView(view);
 
-        ((LinearLayout)view).addView(textView);
+    }
 
+    /**
+     * выводим на экран все названия заметок
+     * @param view
+     */
+    private void initView(View view) {
+        // вытаскиваем наш список заметок из аргументов фрагмента
+        MySimpleNotesArrayList mySimpleNotesArrayList = getArguments().getParcelable(MY_SIMPLE_ARRAY_LIST);
+
+        for (int i = 0; i < mySimpleNotesArrayList.getLength(); i++){ // идём по списку с заметками
+
+            currentNote = mySimpleNotesArrayList.getNote(i);  //достаём текщую заметку
+            TextView textView = new TextView(getContext()); // создаём новый tv
+            textView.setTextSize(30f);
+            textView.setText(currentNote.getTitle());  // устанавливаем размер и текст tv из названия заметки
+
+            ((LinearLayout) view).addView(textView); // добавляем этот tv на лэйаут
+        }
     }
 }
