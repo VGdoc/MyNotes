@@ -10,12 +10,15 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 
-public class MainActivity extends AppCompatActivity {
+public class MainActivity extends AppCompatActivity implements PublisherGetter{
 
     public static MySimpleNotesArrayList testNotes = new MySimpleNotesArrayList();
     Button addNoteButton;
     private static int testNoteCounter = 0;
     private static final String MY_SIMPLE_ARRAY_LIST = "my_simple_array_list";
+    // Создаём класс Паблишера
+    private Publisher publisher = new Publisher();
+    public static final String REFRESH_NOTIFICATION = "refresh";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -31,12 +34,14 @@ public class MainActivity extends AppCompatActivity {
                 SimpleNote testNewNote = new SimpleNote("test note " + testNoteCounter, "test content " + testNoteCounter);
                 testNotes.addNewNote(testNewNote);
                 testNoteCounter++;
+                publisher.notify(REFRESH_NOTIFICATION);
             }
         });
 
 
         NoteTitles noteTitles = NoteTitles.newInstance(testNotes);
         getSupportFragmentManager().beginTransaction().add(R.id.titles, noteTitles).commit();
+        publisher.subscribe(noteTitles);
 
 
     }
@@ -65,5 +70,10 @@ public class MainActivity extends AppCompatActivity {
         }
     }
 
+
+    @Override
+    public Publisher getPublisher() {
+        return null;
+    }
 
 }
