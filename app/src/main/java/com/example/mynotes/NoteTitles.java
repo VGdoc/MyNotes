@@ -2,43 +2,29 @@ package com.example.mynotes;
 
 import android.os.Bundle;
 
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.LinearLayout;
+import android.widget.TextView;
 
-/**
- * A simple {@link Fragment} subclass.
- * Use the {@link NoteTitles#newInstance} factory method to
- * create an instance of this fragment.
- */
 public class NoteTitles extends Fragment {
 
-    // TODO: Rename parameter arguments, choose names that match
-    // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
     private static final String CURRENT_NOTE = "current_note";
-
-    // TODO: Rename and change types of parameters
-    private MySimpleNote currentNote;
+    private SimpleNote currentNote;
 
     public NoteTitles() {
         // Required empty public constructor
     }
 
-    /**
-     * Use this factory method to create a new instance of
-     * this fragment using the provided parameters.
-     *
-     * @param param1 Parameter 1.
-     * @param param2 Parameter 2.
-     * @return A new instance of fragment NoteTitles.
-     */
-    // TODO: Rename and change types and number of parameters
-    public static NoteTitles newInstance(String param1, String param2) {
+    public static NoteTitles newInstance(MySimpleNotesArrayList param1) {
         NoteTitles fragment = new NoteTitles();
         Bundle args = new Bundle();
-        args.putString(CURRENT_NOTE, param1);
+        args.putParcelable(CURRENT_NOTE, param1);
         fragment.setArguments(args);
         return fragment;
     }
@@ -47,9 +33,9 @@ public class NoteTitles extends Fragment {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        if (getArguments() != null) {
-            currentNote = getArguments().getParcelable(CURRENT_NOTE);
-        }
+//        if (getArguments() != null) {
+//            currentNote = getArguments().getParcelable(CURRENT_NOTE);
+//        }
     }
 
     @Override
@@ -57,5 +43,19 @@ public class NoteTitles extends Fragment {
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         return inflater.inflate(R.layout.fragment_note_titles, container, false);
+    }
+
+    @Override
+    public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
+        super.onViewCreated(view, savedInstanceState);
+
+        MySimpleNotesArrayList tempList = MainActivity.testNotes; //todo брать этот список не из активити
+        currentNote = tempList.getNote(0);
+        TextView textView = new TextView(getContext());
+        textView.setTextSize(30f);
+        textView.setText(currentNote.getTitle());
+
+        ((LinearLayout)view).addView(textView);
+
     }
 }
