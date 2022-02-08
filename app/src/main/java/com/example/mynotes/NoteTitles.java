@@ -1,5 +1,6 @@
 package com.example.mynotes;
 
+import android.content.res.Configuration;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
@@ -16,6 +17,8 @@ public class NoteTitles extends Fragment {
 
     private static final String CURRENT_NOTE = "current_note";
     private static final String MY_SIMPLE_ARRAY_LIST = "my_simple_array_list";
+    private static final SimpleNote DEFAULT_NOTE =
+            new SimpleNote("Заметок ещё нет", "Заметки не выбраны");
     private SimpleNote currentNote;
     ;
 
@@ -37,9 +40,6 @@ public class NoteTitles extends Fragment {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-//        if (getArguments() != null) {
-//            currentNote = getArguments().getParcelable(CURRENT_NOTE);
-//        }
     }
 
     @Override
@@ -52,6 +52,16 @@ public class NoteTitles extends Fragment {
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
+
+        if (savedInstanceState == null){
+            currentNote = DEFAULT_NOTE;
+        } else {
+            currentNote = savedInstanceState.getParcelable(CURRENT_NOTE);
+        }
+
+        if (getResources().getConfiguration().orientation == Configuration.ORIENTATION_LANDSCAPE){
+            showLand();
+        }
 
         initView(view);
 
@@ -80,11 +90,30 @@ public class NoteTitles extends Fragment {
             textView.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
+
                     currentNote = mySimpleNotesArrayList.getNote(finalI);
-                    NoteContent noteContent = NoteContent.newInstance(currentNote);
-                    getActivity().getSupportFragmentManager().beginTransaction().replace(R.id.titles, noteContent).addToBackStack("").commit();
+                    if (getResources().getConfiguration().orientation == Configuration.ORIENTATION_LANDSCAPE){
+                        showLand();
+                    }else {
+                        showPort();
+                    }
                 }
             });
         }
+    }
+
+    @Override
+    public void onSaveInstanceState(@NonNull Bundle outState) {
+        super.onSaveInstanceState(outState);
+        outState.putParcelable(CURRENT_NOTE,currentNote);
+    }
+
+    private void showLand() {
+        NoteContent noteContent = NoteContent.newInstance(currentNote);
+        getActivity().getSupportFragmentManager().beginTransaction().replace(R.id.contents, noteContent).commit();
+    }
+    private void showPort() {
+        NoteContent noteContent = NoteContent.newInstance(currentNote);
+        getActivity().getSupportFragmentManager().beginTransaction().replace(R.id.titles, noteContent).addToBackStack("").commit();
     }
 }

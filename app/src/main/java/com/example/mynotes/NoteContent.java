@@ -46,6 +46,7 @@ public class NoteContent extends Fragment {
         SimpleNote note = getArguments().getParcelable(CURRENT_NOTE);
 
         TextView textView = view.findViewById(R.id.note_contents);
+        textView.setTextSize(30f);
         textView.setText(note.getContent());
 
     }
