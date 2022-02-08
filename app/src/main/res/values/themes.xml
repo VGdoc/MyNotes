@@ -13,4 +13,12 @@
         <item name="android:statusBarColor" tools:targetApi="l">?attr/colorPrimaryVariant</item>
         <!-- Customize your theme here. -->
     </style>
+
+    <style name="NoteTitles" parent="Widget.MaterialComponents.TextView">
+        <item name="android:textSize">30sp</item>
+    </style>
+
+    <style name="NoteDescriptions" parent="Widget.MaterialComponents.TextView">
+        <item name="android:textSize">20sp</item>
+    </style>
 </resources>
