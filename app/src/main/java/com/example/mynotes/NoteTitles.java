@@ -16,7 +16,8 @@ public class NoteTitles extends Fragment {
 
     private static final String CURRENT_NOTE = "current_note";
     private static final String MY_SIMPLE_ARRAY_LIST = "my_simple_array_list";
-    private SimpleNote currentNote;;
+    private SimpleNote currentNote;
+    ;
 
     public NoteTitles() {
         // Required empty public constructor
@@ -58,20 +59,32 @@ public class NoteTitles extends Fragment {
 
     /**
      * выводим на экран все названия заметок
+     *
      * @param view
      */
     private void initView(View view) {
         // вытаскиваем наш список заметок из аргументов фрагмента
         MySimpleNotesArrayList mySimpleNotesArrayList = getArguments().getParcelable(MY_SIMPLE_ARRAY_LIST);
 
-        for (int i = 0; i < mySimpleNotesArrayList.getLength(); i++){ // идём по списку с заметками
+        for (int i = 0; i < mySimpleNotesArrayList.getLength(); i++) { // идём по списку с заметками
 
-            currentNote = mySimpleNotesArrayList.getNote(i);  //достаём текщую заметку
+            int finalI = i;
+
             TextView textView = new TextView(getContext()); // создаём новый tv
             textView.setTextSize(30f);
-            textView.setText(currentNote.getTitle());  // устанавливаем размер и текст tv из названия заметки
+            textView.setText(mySimpleNotesArrayList.getNote(i).getTitle());  // //достаём текщую заметку, устанавливаем размер и текст tv из названия заметки
 
             ((LinearLayout) view).addView(textView); // добавляем этот tv на лэйаут
+
+
+            textView.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    currentNote = mySimpleNotesArrayList.getNote(finalI);
+                    NoteContent noteContent = NoteContent.newInstance(currentNote);
+                    getActivity().getSupportFragmentManager().beginTransaction().replace(R.id.titles, noteContent).addToBackStack("").commit();
+                }
+            });
         }
     }
 }
