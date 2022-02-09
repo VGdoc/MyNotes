@@ -25,7 +25,7 @@ public class MainActivity extends AppCompatActivity implements PublisherGetter{
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        // кнопка добавления новой заметки в тестововм режиме
+        // кнопка добавления новой заметки в тестовом режиме
         addNoteButton = findViewById(R.id.btn_add_new_note);
         addNoteButton.setText("Добавить новую заметку (тест)");
         addNoteButton.setOnClickListener(new View.OnClickListener() {
@@ -41,7 +41,7 @@ public class MainActivity extends AppCompatActivity implements PublisherGetter{
 
         NoteTitles noteTitles = NoteTitles.newInstance(testNotes);
         getSupportFragmentManager().beginTransaction().add(R.id.titles, noteTitles).commit();
-        publisher.subscribe(noteTitles);
+        publisher.subscribe(noteTitles); // подписываем фрагмент с заголовками на нажатия кнопки
 
 
     }
@@ -52,28 +52,34 @@ public class MainActivity extends AppCompatActivity implements PublisherGetter{
         outState.putParcelable(MY_SIMPLE_ARRAY_LIST, testNotes);
     }
 
-    /**
-     * Нагло скопировано и подстроено
-     * Пришлось перенести наш костыль в onResume
-     * так как не onBackPressed() вызывать в onCreate - черевато
-     **/
-    @Override
-    protected void onResume() {
-        super.onResume();
-        // ищем фрагмент, который сидит в контейнере R.id.cities_container
-        Fragment backStackFragment = (Fragment) getSupportFragmentManager()
-                .findFragmentById(R.id.titles);
-        // если такой есть, и он является CoatOfArmsFragment
-        if (backStackFragment != null && backStackFragment instanceof NoteContent) {
-            //то сэмулируем нажатие кнопки Назад
-            onBackPressed();
-        }
-    }
+    // Это больше не работает, т.к. из-за множества нажатий на кнопку в бекстек добавляется много фрагментов
+//    /**
+//     * Нагло скопировано и подстроено
+//     * Пришлось перенести наш костыль в onResume
+//     * так как не onBackPressed() вызывать в onCreate - черевато
+//     **/
+//    @Override
+//    protected void onResume() {
+//        super.onResume();
+//        // ищем фрагмент, который сидит в контейнере R.id.cities_container
+//        Fragment backStackFragment = (Fragment) getSupportFragmentManager()
+//                .findFragmentById(R.id.titles);
+//        // если такой есть, и он является CoatOfArmsFragment
+//        if (backStackFragment != null && backStackFragment instanceof NoteContent) {
+//            //то сэмулируем нажатие кнопки Назад
+//            onBackPressed();
+//        }
+//    }
 
 
+    /** Метод из методички, особо не разбирался, вроде бы для того,
+     * чтобы фрагмент мог иметь доступ к паблишеру
+     *
+     * @return
+     */
     @Override
     public Publisher getPublisher() {
-        return null;
+        return publisher;
     }
 
 }

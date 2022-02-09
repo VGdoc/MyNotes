@@ -6,6 +6,7 @@ import android.os.Bundle;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentManager;
 
 import android.view.LayoutInflater;
 import android.view.View;
@@ -20,7 +21,7 @@ public class NoteTitles extends Fragment implements Observer {
     private static final String CURRENT_NOTE = "current_note";
     private static final String MY_SIMPLE_ARRAY_LIST = "my_simple_array_list";
     private static final SimpleNote DEFAULT_NOTE =
-            new SimpleNote("Заметок ещё нет", "Заметки не выбраны");
+            new SimpleNote("Заметок ещё нет", "Заметки не выбраны"); //заметка по умолчанию
     private SimpleNote currentNote;
 
     public NoteTitles() {
@@ -54,7 +55,7 @@ public class NoteTitles extends Fragment implements Observer {
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
-        if (savedInstanceState == null) {
+        if (savedInstanceState == null) { //если ничего не сохранено, устанавливаемм заметку по умолчанию
             currentNote = DEFAULT_NOTE;
         } else {
             currentNote = savedInstanceState.getParcelable(CURRENT_NOTE);
@@ -64,7 +65,7 @@ public class NoteTitles extends Fragment implements Observer {
             showLand();
         }
 
-        initView(view);
+        initView(view); //прорисовка фрагмента на основе массива с заметками
 
     }
 
@@ -77,6 +78,7 @@ public class NoteTitles extends Fragment implements Observer {
         // вытаскиваем наш список заметок из аргументов фрагмента
         MySimpleNotesArrayList mySimpleNotesArrayList = getArguments().getParcelable(MY_SIMPLE_ARRAY_LIST);
 
+        clearBackStack(); //очищаем весь бекстек фрагмент менеджера
 
         for (int i = 0; i < mySimpleNotesArrayList.getLength(); i++) { // идём по списку с заметками
 
@@ -121,10 +123,23 @@ public class NoteTitles extends Fragment implements Observer {
         getActivity().getSupportFragmentManager().beginTransaction().replace(R.id.titles, noteContent).addToBackStack("").commit();
     }
 
+    /**
+     * Полностью очищает и перерисовывает фргмент
+     */
     @Override
     public void refresh() {
         View view = getView();
-        ((LinearLayout)view).removeAllViews();
+        ((LinearLayout) view).removeAllViews();
         initView(view);
+    }
+
+    /**
+     * метод полностью очищает бекстек supportFragmentManager
+     */
+    private void clearBackStack() {
+        if (getActivity().getSupportFragmentManager().getBackStackEntryCount() > 0) {
+            FragmentManager.BackStackEntry first = getActivity().getSupportFragmentManager().getBackStackEntryAt(0);
+            getActivity().getSupportFragmentManager().popBackStack(first.getId(), FragmentManager.POP_BACK_STACK_INCLUSIVE);
+        }
     }
 }
