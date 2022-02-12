@@ -13,7 +13,7 @@ import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 
-public class FragmentNoteTitles extends Fragment implements Observer {
+public class FragmentNoteTitles extends Fragment {
 
     private SimpleNote currentNote;
 
@@ -117,7 +117,6 @@ public class FragmentNoteTitles extends Fragment implements Observer {
     /**
      * Полностью очищает и перерисовывает фргмент
      */
-    @Override
     public void refresh() {
         View view = getView();
         ((LinearLayout) view).removeAllViews();

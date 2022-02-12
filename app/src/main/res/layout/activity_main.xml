@@ -14,11 +14,11 @@
         android:theme="@style/NoteTitles" />
 
 
-    <!--    сюда будет добавлятся кнопка "добвить новую заметку" -->
-    <com.google.android.material.button.MaterialButton
-        android:id="@+id/btn_add_new_note"
+    <!--    сюда будут добавлятся кнопки навигации и действий -->
+    <FrameLayout
+        android:id="@+id/navigation_block"
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:layout_weight="0.1" />
+        android:layout_weight="0.2" />
 
 </LinearLayout>
