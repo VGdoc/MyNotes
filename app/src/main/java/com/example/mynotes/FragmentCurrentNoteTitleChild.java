@@ -6,6 +6,7 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -45,5 +46,29 @@ public class FragmentCurrentNoteTitleChild extends Fragment {
 
         TextView titleTextView = view.findViewById(R.id.current_note_title);
         titleTextView.setText(note.getTitle());
+    }
+
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
+        Log.d("MyFirstLog","onDestroy child");
+    }
+
+    @Override
+    public void onStop() {
+        super.onStop();
+        Log.d("MyFirstLog","onStop child");
+    }
+
+    @Override
+    public void onDestroyView() {
+        super.onDestroyView();
+        Log.d("MyFirstLog","onDestroyView child");
+    }
+
+    @Override
+    public void onDetach() {
+        super.onDetach();
+        Log.d("MyFirstLog","onDetach child");
     }
 }

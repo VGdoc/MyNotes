@@ -1,6 +1,7 @@
 package com.example.mynotes;
 
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -42,11 +43,17 @@ public class FragmentNoteContent extends Fragment {
         SimpleNote note = getArguments().getParcelable(Constants.CURRENT_NOTE);
 
         FragmentCurrentNoteTitleChild fragmentCurrentNoteTitleChild = FragmentCurrentNoteTitleChild.newInstance(note);
-        getChildFragmentManager().beginTransaction().replace(R.id.note_title_while_content,fragmentCurrentNoteTitleChild).commit();
+
+        //реализация через replace
+//        getChildFragmentManager().beginTransaction().replace(R.id.note_title_while_content,fragmentCurrentNoteTitleChild).commit();
+
+        //реализация через add
+        getChildFragmentManager().beginTransaction().add(R.id.note_title_while_content,fragmentCurrentNoteTitleChild).commit();
 
         TextView textView = view.findViewById(R.id.note_contents);
         textView.setTextSize(30f);
         textView.setText(note.getContent());
 
     }
+
 }
