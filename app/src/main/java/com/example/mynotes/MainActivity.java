@@ -1,24 +1,20 @@
 package com.example.mynotes;
 
-import androidx.annotation.NonNull;
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.fragment.app.Fragment;
-
-import android.content.SharedPreferences;
-import android.content.res.Configuration;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 
-public class MainActivity extends AppCompatActivity implements PublisherGetter{
+import androidx.annotation.NonNull;
+import androidx.appcompat.app.AppCompatActivity;
 
-    public static MySimpleNotesArrayList testNotes = new MySimpleNotesArrayList();
-    Button addNoteButton;
-    private static int testNoteCounter = 0;
-    private static final String MY_SIMPLE_ARRAY_LIST = "my_simple_array_list";
+public class MainActivity extends AppCompatActivity implements PublisherGetter {
+
+    public static MySimpleNotesArrayList notesList = new MySimpleNotesArrayList(); // основной список заметок
+    Button addNoteButton; // тестовая кнопка добавления новой заметки
+    private static int testNoteCounter = 0; // счётчик для тестовой кнопки, участвует в динамическом присвоении имён заметок
+
     // Создаём класс Паблишера
-    private Publisher publisher = new Publisher();
-    public static final String REFRESH_NOTIFICATION = "refresh";
+    private final Publisher publisher = new Publisher();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -32,16 +28,16 @@ public class MainActivity extends AppCompatActivity implements PublisherGetter{
             @Override
             public void onClick(View view) {
                 SimpleNote testNewNote = new SimpleNote("test note " + testNoteCounter, "test content " + testNoteCounter);
-                testNotes.addNewNote(testNewNote);
+                notesList.addNewNote(testNewNote);
                 testNoteCounter++;
-                publisher.notify(REFRESH_NOTIFICATION);
+                publisher.notify(Constants.REFRESH_NOTIFICATION);
             }
         });
 
 
-        NoteTitles noteTitles = NoteTitles.newInstance(testNotes);
-        getSupportFragmentManager().beginTransaction().add(R.id.titles, noteTitles).commit();
-        publisher.subscribe(noteTitles); // подписываем фрагмент с заголовками на нажатия кнопки
+        FragmentNoteTitles fragmentNoteTitles = FragmentNoteTitles.newInstance(notesList);
+        getSupportFragmentManager().beginTransaction().add(R.id.titles, fragmentNoteTitles).commit();
+        publisher.subscribe(fragmentNoteTitles); // подписываем фрагмент с заголовками на нажатия кнопки
 
 
     }
@@ -49,33 +45,15 @@ public class MainActivity extends AppCompatActivity implements PublisherGetter{
     @Override
     protected void onSaveInstanceState(@NonNull Bundle outState) {
         super.onSaveInstanceState(outState);
-        outState.putParcelable(MY_SIMPLE_ARRAY_LIST, testNotes);
+        outState.putParcelable(Constants.MY_SIMPLE_ARRAY_LIST, notesList);
     }
 
-    // Это больше не работает, т.к. из-за множества нажатий на кнопку в бекстек добавляется много фрагментов
-//    /**
-//     * Нагло скопировано и подстроено
-//     * Пришлось перенести наш костыль в onResume
-//     * так как не onBackPressed() вызывать в onCreate - черевато
-//     **/
-//    @Override
-//    protected void onResume() {
-//        super.onResume();
-//        // ищем фрагмент, который сидит в контейнере R.id.cities_container
-//        Fragment backStackFragment = (Fragment) getSupportFragmentManager()
-//                .findFragmentById(R.id.titles);
-//        // если такой есть, и он является CoatOfArmsFragment
-//        if (backStackFragment != null && backStackFragment instanceof NoteContent) {
-//            //то сэмулируем нажатие кнопки Назад
-//            onBackPressed();
-//        }
-//    }
 
-
-    /** Метод из методички, особо не разбирался, вроде бы для того,
+    /**
+     * Метод из методички, особо не разбирался, вроде бы для того,
      * чтобы фрагмент мог иметь доступ к паблишеру
      *
-     * @return
+     * @return publisher
      */
     @Override
     public Publisher getPublisher() {

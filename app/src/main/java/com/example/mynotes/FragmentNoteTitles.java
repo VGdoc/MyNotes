@@ -2,37 +2,29 @@ package com.example.mynotes;
 
 import android.content.res.Configuration;
 import android.os.Bundle;
-
-import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
-import androidx.fragment.app.Fragment;
-import androidx.fragment.app.FragmentManager;
-
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
-import java.util.ArrayList;
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentManager;
 
-public class NoteTitles extends Fragment implements Observer {
+public class FragmentNoteTitles extends Fragment implements Observer {
 
-    private static final String CURRENT_NOTE = "current_note";
-    private static final String MY_SIMPLE_ARRAY_LIST = "my_simple_array_list";
-    private static final SimpleNote DEFAULT_NOTE =
-            new SimpleNote("Заметок ещё нет", "Заметки не выбраны"); //заметка по умолчанию
     private SimpleNote currentNote;
 
-    public NoteTitles() {
-        // Required empty public constructor
+    public FragmentNoteTitles() {
     }
 
-    public static NoteTitles newInstance(MySimpleNotesArrayList param1) {
-        NoteTitles fragment = new NoteTitles();
+    public static FragmentNoteTitles newInstance(MySimpleNotesArrayList param1) {
+        FragmentNoteTitles fragment = new FragmentNoteTitles();
 
         Bundle args = new Bundle();
-        args.putParcelable(MY_SIMPLE_ARRAY_LIST, param1);
+        args.putParcelable(Constants.MY_SIMPLE_ARRAY_LIST, param1);
         fragment.setArguments(args);
 
         return fragment;
@@ -47,7 +39,7 @@ public class NoteTitles extends Fragment implements Observer {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        // Inflate the layout for this fragment
+
         return inflater.inflate(R.layout.fragment_note_titles, container, false);
     }
 
@@ -56,9 +48,9 @@ public class NoteTitles extends Fragment implements Observer {
         super.onViewCreated(view, savedInstanceState);
 
         if (savedInstanceState == null) { //если ничего не сохранено, устанавливаемм заметку по умолчанию
-            currentNote = DEFAULT_NOTE;
+            currentNote = Constants.DEFAULT_NOTE;
         } else {
-            currentNote = savedInstanceState.getParcelable(CURRENT_NOTE);
+            currentNote = savedInstanceState.getParcelable(Constants.CURRENT_NOTE);
         }
 
         if (getResources().getConfiguration().orientation == Configuration.ORIENTATION_LANDSCAPE) {
@@ -72,13 +64,13 @@ public class NoteTitles extends Fragment implements Observer {
     /**
      * выводим на экран все названия заметок
      *
-     * @param view
+     * @param view view
      */
     private void initView(View view) {
         // вытаскиваем наш список заметок из аргументов фрагмента
-        MySimpleNotesArrayList mySimpleNotesArrayList = getArguments().getParcelable(MY_SIMPLE_ARRAY_LIST);
+        MySimpleNotesArrayList mySimpleNotesArrayList = getArguments().getParcelable(Constants.MY_SIMPLE_ARRAY_LIST);
 
-        clearBackStack(); //очищаем весь бекстек фрагмент менеджера
+        clearBackStack(); //очищаем весь бекстек фрагмент менеджера перед его заполнением, чтобы не дублировать заголовки на экране
 
         for (int i = 0; i < mySimpleNotesArrayList.getLength(); i++) { // идём по списку с заметками
 
@@ -106,21 +98,20 @@ public class NoteTitles extends Fragment implements Observer {
         }
     }
 
-
     @Override
     public void onSaveInstanceState(@NonNull Bundle outState) {
         super.onSaveInstanceState(outState);
-        outState.putParcelable(CURRENT_NOTE, currentNote);
+        outState.putParcelable(Constants.CURRENT_NOTE, currentNote);
     }
 
     private void showLand() {
-        NoteContent noteContent = NoteContent.newInstance(currentNote);
-        getActivity().getSupportFragmentManager().beginTransaction().replace(R.id.contents, noteContent).commit();
+        FragmentNoteContent fragmentNoteContent = FragmentNoteContent.newInstance(currentNote);
+        requireActivity().getSupportFragmentManager().beginTransaction().replace(R.id.contents, fragmentNoteContent).commit();
     }
 
     private void showPort() {
-        NoteContent noteContent = NoteContent.newInstance(currentNote);
-        getActivity().getSupportFragmentManager().beginTransaction().replace(R.id.titles, noteContent).addToBackStack("").commit();
+        FragmentNoteContent fragmentNoteContent = FragmentNoteContent.newInstance(currentNote);
+        requireActivity().getSupportFragmentManager().beginTransaction().replace(R.id.titles, fragmentNoteContent).addToBackStack("").commit();
     }
 
     /**
@@ -137,9 +128,9 @@ public class NoteTitles extends Fragment implements Observer {
      * метод полностью очищает бекстек supportFragmentManager
      */
     private void clearBackStack() {
-        if (getActivity().getSupportFragmentManager().getBackStackEntryCount() > 0) {
-            FragmentManager.BackStackEntry first = getActivity().getSupportFragmentManager().getBackStackEntryAt(0);
-            getActivity().getSupportFragmentManager().popBackStack(first.getId(), FragmentManager.POP_BACK_STACK_INCLUSIVE);
+        if (requireActivity().getSupportFragmentManager().getBackStackEntryCount() > 0) {
+            FragmentManager.BackStackEntry first = requireActivity().getSupportFragmentManager().getBackStackEntryAt(0);
+            requireActivity().getSupportFragmentManager().popBackStack(first.getId(), FragmentManager.POP_BACK_STACK_INCLUSIVE);
         }
     }
 }

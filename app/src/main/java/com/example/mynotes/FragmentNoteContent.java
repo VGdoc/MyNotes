@@ -1,28 +1,26 @@
 package com.example.mynotes;
 
 import android.os.Bundle;
-
-import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
-import androidx.fragment.app.Fragment;
-
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
-public class NoteContent extends Fragment {
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+import androidx.fragment.app.Fragment;
+
+public class FragmentNoteContent extends Fragment {
 
     private static final String CURRENT_NOTE = "current_note";
 
-    public NoteContent() {
-        // Required empty public constructor
+    public FragmentNoteContent() {
     }
 
-    public static NoteContent newInstance(SimpleNote note) {
-        NoteContent fragment = new NoteContent();
+    public static FragmentNoteContent newInstance(SimpleNote note) {
+        FragmentNoteContent fragment = new FragmentNoteContent();
         Bundle bundle = new Bundle();
-        bundle.putParcelable(CURRENT_NOTE,note);
+        bundle.putParcelable(CURRENT_NOTE, note);
         fragment.setArguments(bundle);
         return fragment;
     }
@@ -35,7 +33,7 @@ public class NoteContent extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        // Inflate the layout for this fragment
+
         return inflater.inflate(R.layout.fragment_note_content, container, false);
     }
 

@@ -23,7 +23,7 @@ public class Publisher {
 
     // Разослать событие по подписчикам (изменение в тексте)
     public void notify(String text) {
-        if (text.equals(MainActivity.REFRESH_NOTIFICATION)){
+        if (text.equals(Constants.REFRESH_NOTIFICATION)) {
             for (Observer observer : observers) {
                 observer.refresh();
             }
