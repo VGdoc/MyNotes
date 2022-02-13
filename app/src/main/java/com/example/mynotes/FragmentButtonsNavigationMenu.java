@@ -64,7 +64,7 @@ public class FragmentButtonsNavigationMenu extends Fragment {
 //                        deleteButtonFunc();
                         break;
                     case (R.id.frame_app_settings_btn):
-//                        settingsButtonFunc();
+                        settingsButtonFunc();
                         break;
                 }
             }
@@ -74,6 +74,11 @@ public class FragmentButtonsNavigationMenu extends Fragment {
         addButton.setOnClickListener(listener);
         deleteButton.setOnClickListener(listener);
         settingsButton.setOnClickListener(listener);
+    }
+
+    private void settingsButtonFunc() {
+        FragmentSettings fragmentSettings = FragmentSettings.newInstance();
+        getParentFragmentManager().beginTransaction().add(R.id.main_activity_fullscreen,fragmentSettings).addToBackStack("").commit();
     }
 
     private void returnButtonFunc() {
