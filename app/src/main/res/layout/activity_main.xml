@@ -23,7 +23,8 @@
             app:subtitle="Just relax"
             app:subtitleTextColor="#bbffffff"
             app:title="Quick Notes"
-            app:titleTextColor="#bbffffff" />
+            app:logo="@drawable/note_app_logo"
+            app:titleTextColor="#bbffffff"/>
 
     </com.google.android.material.appbar.AppBarLayout>
 

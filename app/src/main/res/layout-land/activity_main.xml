@@ -17,6 +17,7 @@
             android:id="@+id/toolbar"
             android:layout_width="match_parent"
             android:layout_height="?actionBarSize"
+            app:logo="@drawable/note_app_logo"
             app:subtitle="Just relax"
             app:subtitleTextColor="#bbffffff"
             app:title="Quick Notes"

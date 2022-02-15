@@ -7,12 +7,14 @@
         android:id="@+id/action_settings"
         android:icon="@drawable/ic_baseline_settings_24"
         android:title="@string/settings"
+        android:orderInCategory="5"
         app:showAsAction="never" />
 
     <item
         android:id="@+id/action_about"
         android:icon="@drawable/ic_baseline_info_24"
         android:title="@string/about"
+        android:orderInCategory="6"
         app:showAsAction="never" />
 
 </menu>
