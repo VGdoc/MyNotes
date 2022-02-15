@@ -18,12 +18,14 @@
 
         <androidx.appcompat.widget.Toolbar
             android:id="@+id/toolbar"
+            android:background="@color/toolbar_color"
             android:layout_width="match_parent"
             android:layout_height="?actionBarSize"
             app:subtitle="Just relax"
             app:subtitleTextColor="#bbffffff"
             app:title="Quick Notes"
             app:logo="@drawable/note_app_logo"
+            app:popupTheme="@style/PopUpItems"
             app:titleTextColor="#bbffffff"/>
 
     </com.google.android.material.appbar.AppBarLayout>
