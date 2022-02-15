@@ -15,14 +15,12 @@ import android.widget.Button;
 public class FragmentSettings extends Fragment {
 
     Button themeSettingsButton;
-    Button aboutButton;
 
     public FragmentSettings() {
     }
 
     public static FragmentSettings newInstance() {
-        FragmentSettings fragment = new FragmentSettings();
-        return fragment;
+        return new FragmentSettings();
     }
 
     @Override
@@ -52,19 +50,11 @@ public class FragmentSettings extends Fragment {
                     case (R.id.btn_theme_settings):
                         themeSettingsButtonFunc();
                         break;
-                    case (R.id.btn_about):
-                        aboutButtonFunc();
-                        break;
                 }
             }
         };
 
         themeSettingsButton.setOnClickListener(listener);
-        aboutButton.setOnClickListener(listener);
-    }
-
-    private void aboutButtonFunc() {
-        //TODO: открыть фрагмент с окном "О программе"
     }
 
     private void themeSettingsButtonFunc() {
@@ -72,8 +62,6 @@ public class FragmentSettings extends Fragment {
     }
 
     void init(View view) {
-
-        themeSettingsButton = requireView().findViewById(R.id.btn_theme_settings);
-        aboutButton = requireView().findViewById(R.id.btn_about);
+        themeSettingsButton = view.findViewById(R.id.btn_theme_settings);
     }
 }
