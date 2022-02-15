@@ -86,15 +86,15 @@ public class FragmentButtonsNavigationMenu extends Fragment {
     void init(View view) {
 
         returnButton = requireView().findViewById(R.id.frame_return_btn);
-        returnButton.setImageResource(R.drawable.return_button);
+        returnButton.setImageResource(R.drawable.ic_baseline_arrow_back_24);
 
         addButton = requireView().findViewById(R.id.frame_add_new_note_btn);
-        addButton.setImageResource(R.drawable.add_button);
+        addButton.setImageResource(R.drawable.ic_baseline_add_24);
 
         deleteButton = requireView().findViewById(R.id.frame_delete_note_btn);
-        deleteButton.setImageResource(R.drawable.delete_button);
+        deleteButton.setImageResource(R.drawable.ic_baseline_delete_24);
 
         settingsButton = requireView().findViewById(R.id.frame_app_settings_btn);
-        settingsButton.setImageResource(R.drawable.settings_button);
+        settingsButton.setImageResource(R.drawable.ic_baseline_settings_24);
     }
 }
