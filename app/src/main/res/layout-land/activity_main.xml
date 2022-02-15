@@ -5,17 +5,35 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
+    <com.google.android.material.appbar.AppBarLayout
+        android:id="@+id/appBarLayout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <androidx.appcompat.widget.Toolbar
+            android:id="@+id/toolbar"
+            android:layout_width="match_parent"
+            android:layout_height="?actionBarSize"
+            app:subtitle="Just relax"
+            app:subtitleTextColor="#bbffffff"
+            app:title="Quick Notes"
+            app:titleTextColor="#bbffffff" />
+
+    </com.google.android.material.appbar.AppBarLayout>
+
     <FrameLayout
         android:id="@+id/titles"
         android:layout_width="0dp"
         android:layout_height="0dp"
         android:foregroundGravity="fill_horizontal"
         android:theme="@style/NoteTitles"
+        app:layout_constraintBottom_toTopOf="@+id/navigation_block"
         app:layout_constraintEnd_toStartOf="@+id/border"
-        app:layout_constraintHeight_percent="0.8"
-        app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/appBarLayout"
         app:layout_constraintWidth_percent="0.39" />
 
     <FrameLayout
@@ -25,10 +43,10 @@
         android:background="@color/purple_200"
         android:foregroundGravity="fill_horizontal"
         android:theme="@style/NoteTitles"
+        app:layout_constraintBottom_toTopOf="@+id/navigation_block"
         app:layout_constraintEnd_toStartOf="@+id/contents"
-        app:layout_constraintHeight_percent="0.8"
         app:layout_constraintStart_toEndOf="@+id/titles"
-        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/appBarLayout"
         app:layout_constraintWidth_percent="0.01" />
 
     <FrameLayout
@@ -37,10 +55,10 @@
         android:layout_height="0dp"
         android:layout_weight="0.6"
         android:theme="@style/NoteTitles"
+        app:layout_constraintBottom_toTopOf="@+id/navigation_block"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHeight_percent="0.8"
         app:layout_constraintStart_toEndOf="@+id/border"
-        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/appBarLayout"
         app:layout_constraintWidth_percent="0.6" />
 
     <!--    сюда будут добавлятся кнопки навигации и действий -->
