@@ -15,8 +15,6 @@ public class FragmentButtonsNavigationMenu extends Fragment {
 
     ImageView returnButton;
     ImageView addButton;
-    ImageView deleteButton;
-    ImageView settingsButton;
 
     public FragmentButtonsNavigationMenu() {
     }

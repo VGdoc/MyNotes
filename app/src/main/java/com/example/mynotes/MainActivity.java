@@ -2,6 +2,7 @@ package com.example.mynotes;
 
 import android.os.Bundle;
 import android.view.Menu;
+import android.view.MenuItem;
 import android.widget.Button;
 
 import androidx.annotation.NonNull;
@@ -40,6 +41,19 @@ public class MainActivity extends AppCompatActivity {
     public boolean onCreateOptionsMenu(Menu menu) {
         getMenuInflater().inflate(R.menu.toolbar_menu, menu);
         return super.onCreateOptionsMenu(menu);
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(@NonNull MenuItem item) {
+        switch (item.getItemId()){
+            case (R.id.action_about):
+                //todo
+                break;
+            case (R.id.action_settings):
+                getSupportFragmentManager().beginTransaction().replace(R.id.main_activity_fullscreen,FragmentSettings.newInstance()).addToBackStack("").commit();
+                break;
+        }
+        return super.onOptionsItemSelected(item);
     }
 
     private void addFewNotesForTests() {
