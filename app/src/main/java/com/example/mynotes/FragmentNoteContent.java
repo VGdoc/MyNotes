@@ -3,6 +3,8 @@ package com.example.mynotes;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
+import android.view.Menu;
+import android.view.MenuInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
@@ -54,6 +56,15 @@ public class FragmentNoteContent extends Fragment {
         textView.setTextSize(30f);
         textView.setText(note.getContent());
 
+        if (savedInstanceState == null) {
+            setHasOptionsMenu(true);
+        }
+
     }
 
+    @Override
+    public void onCreateOptionsMenu(@NonNull Menu menu, @NonNull MenuInflater inflater) {
+        inflater.inflate(R.menu.fragment_note_content_menu, menu);
+        super.onCreateOptionsMenu(menu, inflater);
+    }
 }

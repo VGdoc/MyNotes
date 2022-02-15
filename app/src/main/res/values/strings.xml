@@ -6,4 +6,8 @@
     <string name="theme_settings">Настройки темы</string>
     <string name="about">О программе</string>
     <string name="settings">Настройки</string>
+    <string name="choose_all">Выбрать все</string>
+    <string name="share">Поделится...</string>
+    <string name="edit_note">Изменить заметку</string>
+    <string name="make_a_choice">Выбрать</string>
 </resources>
