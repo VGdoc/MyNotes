@@ -5,4 +5,5 @@
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="theme_settings">Настройки темы</string>
     <string name="about">О программе</string>
+    <string name="settings">Настройки</string>
 </resources>

@@ -1,11 +1,27 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:id="@+id/main_activity_fullscreen"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
     tools:context=".MainActivity">
+
+    <com.google.android.material.appbar.AppBarLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <androidx.appcompat.widget.Toolbar
+            android:id="@+id/toolbar"
+            android:layout_width="match_parent"
+            android:layout_height="?actionBarSize"
+            app:title="Quick Notes"
+            app:subtitle="Just relax"
+            app:titleTextColor="#bbffffff"
+            app:subtitleTextColor="#bbffffff" />
+
+    </com.google.android.material.appbar.AppBarLayout>
 
     <FrameLayout
         android:id="@+id/titles"
@@ -19,7 +35,7 @@
     <FrameLayout
         android:id="@+id/navigation_block"
         android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:layout_weight="0.2" />
+        android:layout_height="?actionBarSize" />
+
 
 </LinearLayout>

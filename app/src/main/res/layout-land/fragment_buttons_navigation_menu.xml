@@ -13,35 +13,17 @@
         app:layout_constraintEnd_toStartOf="@+id/frame_add_new_note_btn"
         app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintWidth_percent="0.25" />
+        app:layout_constraintWidth_percent="0.5" />
 
     <ImageView
         android:id="@+id/frame_add_new_note_btn"
         android:layout_width="0dp"
         android:layout_height="match_parent"
-        app:layout_constraintEnd_toStartOf="@+id/frame_delete_note_btn"
-        app:layout_constraintHorizontal_bias="0.5"
-        app:layout_constraintStart_toEndOf="@+id/frame_return_btn"
-        app:layout_constraintWidth_percent="0.25"
-        tools:layout_editor_absoluteY="0dp" />
-
-    <ImageView
-        android:id="@+id/frame_delete_note_btn"
-        android:layout_width="0dp"
-        android:layout_height="match_parent"
-        app:layout_constraintEnd_toStartOf="@+id/frame_app_settings_btn"
-        app:layout_constraintHorizontal_bias="0.5"
-        app:layout_constraintStart_toEndOf="@+id/frame_add_new_note_btn"
-        app:layout_constraintWidth_percent="0.25"
-        tools:layout_editor_absoluteY="0dp" />
-
-    <ImageView
-        android:id="@+id/frame_app_settings_btn"
-        android:layout_width="0dp"
-        android:layout_height="match_parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.5"
-        app:layout_constraintStart_toEndOf="@+id/frame_delete_note_btn"
-        app:layout_constraintWidth_percent="0.25"
+        app:layout_constraintStart_toEndOf="@+id/frame_return_btn"
+        app:layout_constraintWidth_percent="0.5"
         tools:layout_editor_absoluteY="0dp" />
+
+
 </androidx.constraintlayout.widget.ConstraintLayout>

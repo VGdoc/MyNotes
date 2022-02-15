@@ -58,25 +58,12 @@ public class FragmentButtonsNavigationMenu extends Fragment {
                     case (R.id.frame_add_new_note_btn):
 //                        addButtonFunc();
                         break;
-                    case (R.id.frame_delete_note_btn):
-//                        deleteButtonFunc();
-                        break;
-                    case (R.id.frame_app_settings_btn):
-                        settingsButtonFunc();
-                        break;
                 }
             }
         };
 
         returnButton.setOnClickListener(listener);
         addButton.setOnClickListener(listener);
-        deleteButton.setOnClickListener(listener);
-        settingsButton.setOnClickListener(listener);
-    }
-
-    private void settingsButtonFunc() {
-        FragmentSettings fragmentSettings = FragmentSettings.newInstance();
-        getParentFragmentManager().beginTransaction().add(R.id.main_activity_fullscreen,fragmentSettings).addToBackStack("").commit();
     }
 
     private void returnButtonFunc() {
@@ -90,11 +77,5 @@ public class FragmentButtonsNavigationMenu extends Fragment {
 
         addButton = requireView().findViewById(R.id.frame_add_new_note_btn);
         addButton.setImageResource(R.drawable.ic_baseline_add_24);
-
-        deleteButton = requireView().findViewById(R.id.frame_delete_note_btn);
-        deleteButton.setImageResource(R.drawable.ic_baseline_delete_24);
-
-        settingsButton = requireView().findViewById(R.id.frame_app_settings_btn);
-        settingsButton.setImageResource(R.drawable.ic_baseline_settings_24);
     }
 }

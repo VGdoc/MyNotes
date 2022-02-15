@@ -48,7 +48,7 @@ public class FragmentNoteContent extends Fragment {
 //        getChildFragmentManager().beginTransaction().replace(R.id.note_title_while_content,fragmentCurrentNoteTitleChild).commit();
 
         //реализация через add
-        getChildFragmentManager().beginTransaction().add(R.id.note_title_while_content,fragmentCurrentNoteTitleChild).commit();
+        getChildFragmentManager().beginTransaction().add(R.id.note_title_while_content, fragmentCurrentNoteTitleChild).commit();
 
         TextView textView = view.findViewById(R.id.note_contents);
         textView.setTextSize(30f);

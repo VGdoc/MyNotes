@@ -1,6 +1,7 @@
 package com.example.mynotes;
 
 import android.os.Bundle;
+import android.view.Menu;
 import android.widget.Button;
 
 import androidx.annotation.NonNull;
@@ -30,6 +31,15 @@ public class MainActivity extends AppCompatActivity {
         FragmentButtonsNavigationMenu fragmentButtonsNavigationMenu = FragmentButtonsNavigationMenu.newInstance();
         getSupportFragmentManager().beginTransaction().add(R.id.navigation_block, fragmentButtonsNavigationMenu).commit();
 
+        // toolbar
+        setSupportActionBar(findViewById(R.id.toolbar));
+
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.toolbar_menu, menu);
+        return super.onCreateOptionsMenu(menu);
     }
 
     private void addFewNotesForTests() {

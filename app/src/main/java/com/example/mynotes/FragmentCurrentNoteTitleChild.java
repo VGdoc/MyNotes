@@ -51,24 +51,24 @@ public class FragmentCurrentNoteTitleChild extends Fragment {
     @Override
     public void onDestroy() {
         super.onDestroy();
-        Log.d("MyFirstLog","onDestroy child");
+        Log.d("MyFirstLog", "onDestroy child");
     }
 
     @Override
     public void onStop() {
         super.onStop();
-        Log.d("MyFirstLog","onStop child");
+        Log.d("MyFirstLog", "onStop child");
     }
 
     @Override
     public void onDestroyView() {
         super.onDestroyView();
-        Log.d("MyFirstLog","onDestroyView child");
+        Log.d("MyFirstLog", "onDestroyView child");
     }
 
     @Override
     public void onDetach() {
         super.onDetach();
-        Log.d("MyFirstLog","onDetach child");
+        Log.d("MyFirstLog", "onDetach child");
     }
 }
