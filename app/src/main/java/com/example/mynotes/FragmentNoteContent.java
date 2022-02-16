@@ -2,12 +2,16 @@ package com.example.mynotes;
 
 import android.os.Bundle;
 import android.util.Log;
+import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.PopupMenu;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -59,6 +63,32 @@ public class FragmentNoteContent extends Fragment {
         if (savedInstanceState == null) {
             setHasOptionsMenu(true);
         }
+
+        textView.setOnLongClickListener(new View.OnLongClickListener() {
+            @Override
+            public boolean onLongClick(View view) {
+                PopupMenu popupMenu = new PopupMenu(requireContext(), view, Gravity.CENTER);
+                requireActivity().getMenuInflater().inflate(R.menu.fragment_note_content_menu, popupMenu.getMenu());
+                popupMenu.setOnMenuItemClickListener(new PopupMenu.OnMenuItemClickListener() {
+                    @Override
+                    public boolean onMenuItemClick(MenuItem menuItem) {
+                        switch (menuItem.getItemId()) {
+                            case (R.id.action_edit_note):
+                                //TODO
+                                Toast.makeText(requireContext(), "Заметка редактируется", Toast.LENGTH_LONG).show();
+                                break;
+                            case (R.id.action_share):
+                                //TODO
+                                Toast.makeText(requireContext(), "Текст заметки отправляется через месенджер", Toast.LENGTH_LONG).show();
+                                break;
+                        }
+                        return false;
+                    }
+                });
+                popupMenu.show();
+                return false;
+            }
+        });
 
     }
 
