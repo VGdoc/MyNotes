@@ -10,4 +10,5 @@
     <string name="share">Поделится...</string>
     <string name="edit_note">Изменить заметку</string>
     <string name="make_a_choice">Выбрать</string>
+    <string name="delete">Удалить</string>
 </resources>

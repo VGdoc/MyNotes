@@ -2,13 +2,17 @@ package com.example.mynotes;
 
 import android.content.res.Configuration;
 import android.os.Bundle;
+import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.LinearLayout;
+import android.widget.PopupMenu;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -103,6 +107,33 @@ public class FragmentNoteTitles extends Fragment {
                     } else {
                         showPort();
                     }
+                }
+            });
+
+            textView.setOnLongClickListener(new View.OnLongClickListener() {
+                @Override
+                public boolean onLongClick(View view) {
+                    PopupMenu popupMenu = new PopupMenu(requireContext(), view);
+                    requireActivity().getMenuInflater().inflate(R.menu.note_title_popup, popupMenu.getMenu());
+                    popupMenu.setOnMenuItemClickListener(new PopupMenu.OnMenuItemClickListener() {
+                        @Override
+                        public boolean onMenuItemClick(MenuItem menuItem) {
+                            switch (menuItem.getItemId()){
+                                case (R.id.popup_note_title_edit):
+                                    //TODO
+                                    Toast.makeText(requireContext(),String.format("Заметка \"%s\" редактируется", textView.getText()), Toast.LENGTH_LONG).show();
+                                    break;
+                                case (R.id.popup_note_title_delete):
+                                    //TODO
+                                    Toast.makeText(requireContext(),String.format("Заметка \"%s\" удалена", textView.getText()), Toast.LENGTH_LONG).show();
+
+                                    break;
+                            }
+                            return false;
+                        }
+                    });
+                    popupMenu.show();
+                    return false;
                 }
             });
         }
