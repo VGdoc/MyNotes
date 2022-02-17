@@ -2,6 +2,7 @@ package com.example.mynotes;
 
 import android.os.Parcel;
 import android.os.Parcelable;
+import android.widget.EditText;
 
 import java.util.HashMap;
 import java.util.Set;
@@ -36,6 +37,10 @@ public class NotesMainContainer implements Parcelable {
 
     public NotesMainContainer() {
         allNotes = new HashMap<>();
+    }
+
+    public static boolean contains(String title) {
+        return allNotes.containsKey(title);
     }
 
     /**

@@ -15,4 +15,6 @@
     <string name="save">Сохранить</string>
     <string name="note_content_tip">Описание заметки:</string>
     <string name="cancel">Отменить</string>
+    <string name="note_already_exist">Такая заметка уже существует</string>
+    <string name="empty_title_warning_message">Введите название заметки</string>
 </resources>

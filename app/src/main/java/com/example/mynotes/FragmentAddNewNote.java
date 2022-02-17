@@ -11,6 +11,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.Toast;
 
 
 public class FragmentAddNewNote extends Fragment {
@@ -50,7 +51,18 @@ public class FragmentAddNewNote extends Fragment {
             public void onClick(View view) {
                 switch (view.getId()){
                     case (R.id.btn_save_add_new_note):
-                        break;
+                        if (editTextTitle.getText().toString().equals("")){ // Если строка пустая
+                            Toast.makeText(requireContext(),R.string.empty_title_warning_message,Toast.LENGTH_LONG).show();
+                            break;
+                        }
+                        if (NotesMainContainer.contains(editTextTitle.getText().toString())){
+                            Toast.makeText(requireContext(),R.string.note_already_exist,Toast.LENGTH_LONG).show();
+                            break;
+                        }
+                        MainActivity.notesList.addNewNote(editTextTitle.getText().toString(), editTextContent.getText().toString());
+                        requireActivity().recreate(); //КОСТЫЛЬ, чтобы отобразить новую заметку
+                        //TODO: сделать сохранение состояния при повороте экрана
+                        // специально break не стоит, чтобы закрыть фрагмент, после добавления новой заметки
                     case (R.id.btn_cancel_add_new_note):
                         requireActivity().onBackPressed();
                         break;
