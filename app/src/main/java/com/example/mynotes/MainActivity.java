@@ -3,15 +3,13 @@ package com.example.mynotes;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.widget.Button;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
 public class MainActivity extends AppCompatActivity {
 
-    public static MySimpleNotesArrayList notesList = new MySimpleNotesArrayList(); // основной список заметок
-    Button addNoteButton; // тестовая кнопка добавления новой заметки
+    public static NotesMainContainer notesList = new NotesMainContainer(); // основной список заметок
     private static int testNoteCounter = 0; // счётчик для тестовой кнопки, участвует в динамическом присвоении имён заметок
 
     private static boolean arrayFillOnlyOnceFlag = true; // флаг, чтобы добавлять замекти только 1 раз при запуске приложения, нужен для тестов
@@ -59,8 +57,7 @@ public class MainActivity extends AppCompatActivity {
     private void addFewNotesForTests() {
         if (arrayFillOnlyOnceFlag) {
             for (int i = 0; i < 5; i++) {
-                SimpleNote testNewNote = new SimpleNote("test note " + testNoteCounter, "test content " + testNoteCounter);
-                notesList.addNewNote(testNewNote);
+                notesList.addNewNote("test note " + testNoteCounter, "test content " + testNoteCounter);
                 testNoteCounter++;
             }
             arrayFillOnlyOnceFlag = false;

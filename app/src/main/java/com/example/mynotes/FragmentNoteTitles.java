@@ -2,7 +2,6 @@ package com.example.mynotes;
 
 import android.content.res.Configuration;
 import android.os.Bundle;
-import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -21,12 +20,12 @@ import androidx.fragment.app.FragmentManager;
 
 public class FragmentNoteTitles extends Fragment {
 
-    private SimpleNote currentNote;
+    private String currentNote;
 
     public FragmentNoteTitles() {
     }
 
-    public static FragmentNoteTitles newInstance(MySimpleNotesArrayList param1) {
+    public static FragmentNoteTitles newInstance(NotesMainContainer param1) {
         FragmentNoteTitles fragment = new FragmentNoteTitles();
 
         Bundle args = new Bundle();
@@ -56,7 +55,7 @@ public class FragmentNoteTitles extends Fragment {
         if (savedInstanceState == null) { //если ничего не сохранено, устанавливаемм заметку по умолчанию
             currentNote = Constants.DEFAULT_NOTE;
         } else {
-            currentNote = savedInstanceState.getParcelable(Constants.CURRENT_NOTE);
+            currentNote = savedInstanceState.getString(Constants.CURRENT_NOTE);
         }
 
         if (getResources().getConfiguration().orientation == Configuration.ORIENTATION_LANDSCAPE) {
@@ -82,17 +81,18 @@ public class FragmentNoteTitles extends Fragment {
      */
     private void initView(View view) {
         // вытаскиваем наш список заметок из аргументов фрагмента
-        MySimpleNotesArrayList mySimpleNotesArrayList = getArguments().getParcelable(Constants.MY_SIMPLE_ARRAY_LIST);
+        NotesMainContainer notesMainContainer = getArguments().getParcelable(Constants.MY_SIMPLE_ARRAY_LIST);
 
         clearBackStack(); //очищаем весь бекстек фрагмент менеджера перед его заполнением, чтобы не дублировать заголовки на экране
+        String[] noteTitles = NotesMainContainer.getTitles().toArray(new String[0]);
 
-        for (int i = 0; i < mySimpleNotesArrayList.getLength(); i++) { // идём по списку с заметками
+        for (int i = 0; i < noteTitles.length; i++) { // идём по списку с заметками
 
             int finalI = i;
 
             TextView textView = new TextView(getContext()); // создаём новый tv
             textView.setTextSize(30f);
-            textView.setText(mySimpleNotesArrayList.getNote(i).getTitle()); //достаём текщую заметку, устанавливаем размер и текст tv из названия заметки
+            textView.setText(noteTitles[i]); //достаём текщую заметку, устанавливаем размер и текст tv из названия заметки
 
             ((LinearLayout) view).addView(textView); // добавляем этот tv на лэйаут
 
@@ -101,7 +101,7 @@ public class FragmentNoteTitles extends Fragment {
                 @Override
                 public void onClick(View view) {
 
-                    currentNote = mySimpleNotesArrayList.getNote(finalI);
+                    currentNote = noteTitles[finalI];
                     if (getResources().getConfiguration().orientation == Configuration.ORIENTATION_LANDSCAPE) {
                         showLand();
                     } else {
@@ -142,7 +142,7 @@ public class FragmentNoteTitles extends Fragment {
     @Override
     public void onSaveInstanceState(@NonNull Bundle outState) {
         super.onSaveInstanceState(outState);
-        outState.putParcelable(Constants.CURRENT_NOTE, currentNote);
+        outState.putString(Constants.CURRENT_NOTE, currentNote);
     }
 
     private void showLand() {

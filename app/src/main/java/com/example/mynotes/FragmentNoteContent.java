@@ -1,7 +1,6 @@
 package com.example.mynotes;
 
 import android.os.Bundle;
-import android.util.Log;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.Menu;
@@ -22,10 +21,10 @@ public class FragmentNoteContent extends Fragment {
     public FragmentNoteContent() {
     }
 
-    public static FragmentNoteContent newInstance(SimpleNote note) {
+    public static FragmentNoteContent newInstance(String note) {
         FragmentNoteContent fragment = new FragmentNoteContent();
         Bundle bundle = new Bundle();
-        bundle.putParcelable(Constants.CURRENT_NOTE, note);
+        bundle.putString(Constants.CURRENT_NOTE, note);
         fragment.setArguments(bundle);
         return fragment;
     }
@@ -46,19 +45,15 @@ public class FragmentNoteContent extends Fragment {
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
-        SimpleNote note = getArguments().getParcelable(Constants.CURRENT_NOTE);
+        String currentNote = getArguments().getString(Constants.CURRENT_NOTE);
 
-        FragmentCurrentNoteTitleChild fragmentCurrentNoteTitleChild = FragmentCurrentNoteTitleChild.newInstance(note);
+        FragmentCurrentNoteTitleChild fragmentCurrentNoteTitleChild = FragmentCurrentNoteTitleChild.newInstance(currentNote);
 
-        //реализация через replace
-//        getChildFragmentManager().beginTransaction().replace(R.id.note_title_while_content,fragmentCurrentNoteTitleChild).commit();
-
-        //реализация через add
-        getChildFragmentManager().beginTransaction().add(R.id.note_title_while_content, fragmentCurrentNoteTitleChild).commit();
+        getChildFragmentManager().beginTransaction().replace(R.id.note_title_while_content,fragmentCurrentNoteTitleChild).commit();
 
         TextView textView = view.findViewById(R.id.note_contents);
         textView.setTextSize(30f);
-        textView.setText(note.getContent());
+        textView.setText(NotesMainContainer.getNoteContent(currentNote));
 
         if (savedInstanceState == null) {
             setHasOptionsMenu(true);

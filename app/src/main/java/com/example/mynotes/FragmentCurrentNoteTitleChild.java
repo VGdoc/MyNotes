@@ -17,10 +17,10 @@ public class FragmentCurrentNoteTitleChild extends Fragment {
     public FragmentCurrentNoteTitleChild() {
     }
 
-    public static FragmentCurrentNoteTitleChild newInstance(SimpleNote note) {
+    public static FragmentCurrentNoteTitleChild newInstance(String note) {
         FragmentCurrentNoteTitleChild fragment = new FragmentCurrentNoteTitleChild();
         Bundle bundle = new Bundle();
-        bundle.putParcelable(Constants.CURRENT_NOTE, note);
+        bundle.putString(Constants.CURRENT_NOTE, note);
         fragment.setArguments(bundle);
         return fragment;
     }
@@ -42,10 +42,10 @@ public class FragmentCurrentNoteTitleChild extends Fragment {
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
-        SimpleNote note = getArguments().getParcelable(Constants.CURRENT_NOTE);
+        String currentNote = getArguments().getString(Constants.CURRENT_NOTE);
 
         TextView titleTextView = view.findViewById(R.id.current_note_title);
-        titleTextView.setText(note.getTitle());
+        titleTextView.setText(currentNote);
     }
 
     @Override
