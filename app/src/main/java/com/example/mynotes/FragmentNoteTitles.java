@@ -96,17 +96,12 @@ public class FragmentNoteTitles extends Fragment {
 
             ((LinearLayout) view).addView(textView); // добавляем этот tv на лэйаут
 
-
             textView.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
 
                     currentNote = noteTitles[finalI];
-                    if (getResources().getConfiguration().orientation == Configuration.ORIENTATION_LANDSCAPE) {
-                        showLand();
-                    } else {
-                        showPort();
-                    }
+                    showCurrentNoteContent();
                 }
             });
 
@@ -118,15 +113,22 @@ public class FragmentNoteTitles extends Fragment {
                     popupMenu.setOnMenuItemClickListener(new PopupMenu.OnMenuItemClickListener() {
                         @Override
                         public boolean onMenuItemClick(MenuItem menuItem) {
-                            switch (menuItem.getItemId()){
+                            switch (menuItem.getItemId()) {
                                 case (R.id.popup_note_title_edit):
                                     //TODO
-                                    Toast.makeText(requireContext(),String.format("Заметка \"%s\" редактируется", textView.getText()), Toast.LENGTH_LONG).show();
+                                    Toast.makeText(requireContext(), String.format("Заметка \"%s\" редактируется", textView.getText()), Toast.LENGTH_LONG).show();
                                     break;
                                 case (R.id.popup_note_title_delete):
-                                    //TODO
-                                    Toast.makeText(requireContext(),String.format("Заметка \"%s\" удалена", textView.getText()), Toast.LENGTH_LONG).show();
+                                    NotesMainContainer.deleteNote(textView.getText().toString()); // удаляем из БД
+                                    ((LinearLayout) requireView()).removeView(textView); // удаляем текущий tv
 
+                                    if (textView.getText().equals(currentNote)) { // если удалили текущую заметку
+                                        currentNote = Constants.DEFAULT_NOTE; // сбрасываем значение текущей заметки
+                                    }
+
+                                    if (getResources().getConfiguration().orientation == Configuration.ORIENTATION_LANDSCAPE) { // перерисовываем фрагмент
+                                        showLand();
+                                    }
                                     break;
                             }
                             return false;
@@ -155,13 +157,22 @@ public class FragmentNoteTitles extends Fragment {
         requireActivity().getSupportFragmentManager().beginTransaction().replace(R.id.titles, fragmentNoteContent).addToBackStack("").commit();
     }
 
+
+    public void showCurrentNoteContent() {
+        if (getResources().getConfiguration().orientation == Configuration.ORIENTATION_LANDSCAPE) {
+            showLand();
+        } else {
+            showPort();
+        }
+    }
+
     /**
      * Полностью очищает и перерисовывает фргмент
      */
-    public void refresh() {
-        View view = getView();
-        ((LinearLayout) view).removeAllViews();
-        initView(view);
+    public void refreshContents() {
+
+        ((LinearLayout) requireView()).removeAllViews();
+        initView(requireView());
     }
 
     /**

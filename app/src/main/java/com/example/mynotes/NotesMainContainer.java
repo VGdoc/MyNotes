@@ -66,4 +66,8 @@ public class NotesMainContainer implements Parcelable {
     public int getLength() {
         return allNotes.size();
     }
+
+    public static void deleteNote(String title) {
+        allNotes.remove(title);
+    }
 }

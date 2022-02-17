@@ -6,6 +6,7 @@ import android.view.MenuItem;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.fragment.app.Fragment;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -22,17 +23,18 @@ public class MainActivity extends AppCompatActivity {
         // Для тестов добавляются несколько заметок перед запуском
         addFewNotesForTests();
 
-        // Основной фрагмент на экране
-        FragmentNoteTitles fragmentNoteTitles = FragmentNoteTitles.newInstance(notesList);
-        getSupportFragmentManager().beginTransaction().add(R.id.titles, fragmentNoteTitles).commit();
+        if (savedInstanceState == null) {
+            // Основной фрагмент на экране
+            FragmentNoteTitles fragmentNoteTitles = FragmentNoteTitles.newInstance(notesList);
+            getSupportFragmentManager().beginTransaction().add(R.id.titles, fragmentNoteTitles).commit();
 
-        // фрагмент с кнопками навигации
-        FragmentButtonsNavigationMenu fragmentButtonsNavigationMenu = FragmentButtonsNavigationMenu.newInstance();
-        getSupportFragmentManager().beginTransaction().add(R.id.navigation_block, fragmentButtonsNavigationMenu).commit();
+            // фрагмент с кнопками навигации
+            FragmentButtonsNavigationMenu fragmentButtonsNavigationMenu = FragmentButtonsNavigationMenu.newInstance();
+            getSupportFragmentManager().beginTransaction().add(R.id.navigation_block, fragmentButtonsNavigationMenu).commit();
+        }
 
         // toolbar
         setSupportActionBar(findViewById(R.id.toolbar));
-
     }
 
     @Override
@@ -43,12 +45,12 @@ public class MainActivity extends AppCompatActivity {
 
     @Override
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
-        switch (item.getItemId()){
+        switch (item.getItemId()) {
             case (R.id.action_about):
                 //todo
                 break;
             case (R.id.action_settings):
-                getSupportFragmentManager().beginTransaction().replace(R.id.main_activity_fullscreen,FragmentSettings.newInstance()).addToBackStack("").commit();
+                getSupportFragmentManager().beginTransaction().replace(R.id.main_activity_fullscreen, FragmentSettings.newInstance()).addToBackStack("").commit();
                 break;
         }
         return super.onOptionsItemSelected(item);
@@ -68,6 +70,23 @@ public class MainActivity extends AppCompatActivity {
     protected void onSaveInstanceState(@NonNull Bundle outState) {
         super.onSaveInstanceState(outState);
         outState.putParcelable(Constants.MY_SIMPLE_ARRAY_LIST, notesList);
+    }
+
+    /**
+     * Пришлось перенести наш костыль в onResume
+     * так как не onBackPressed() вызывать в onCreate - черевато
+     **/
+    @Override
+    protected void onResume() {
+        super.onResume();
+        // ищем фрагмент, который сидит в контейнере R.id.cities_container
+        Fragment backStackFragment = (Fragment) getSupportFragmentManager()
+                .findFragmentById(R.id.titles);
+        // если такой есть, и он является CoatOfArmsFragment
+        if (backStackFragment != null && backStackFragment instanceof FragmentNoteContent) {
+            //то сэмулируем нажатие кнопки Назад
+            onBackPressed();
+        }
     }
 
 }
