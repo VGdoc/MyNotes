@@ -11,4 +11,8 @@
     <string name="edit_note">Изменить заметку</string>
     <string name="make_a_choice">Выбрать</string>
     <string name="delete">Удалить</string>
+    <string name="tip_title">Название:</string>
+    <string name="save">Сохранить</string>
+    <string name="note_content_tip">Описание заметки:</string>
+    <string name="cancel">Отменить</string>
 </resources>

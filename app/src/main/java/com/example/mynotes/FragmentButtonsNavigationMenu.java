@@ -54,7 +54,7 @@ public class FragmentButtonsNavigationMenu extends Fragment {
                         returnButtonFunc();
                         break;
                     case (R.id.frame_add_new_note_btn):
-//                        addButtonFunc();
+                        addButtonFunc();
                         break;
                 }
             }
@@ -62,6 +62,11 @@ public class FragmentButtonsNavigationMenu extends Fragment {
 
         returnButton.setOnClickListener(listener);
         addButton.setOnClickListener(listener);
+    }
+
+    private void addButtonFunc() {
+        FragmentAddNewNote fragmentAddNewNote = FragmentAddNewNote.newInstance();
+        getParentFragmentManager().beginTransaction().add(R.id.main_activity_fullscreen,fragmentAddNewNote).addToBackStack("").commit();
     }
 
     private void returnButtonFunc() {
