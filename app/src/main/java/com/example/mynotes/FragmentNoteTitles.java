@@ -1,5 +1,7 @@
 package com.example.mynotes;
 
+import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.content.res.Configuration;
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -11,7 +13,6 @@ import android.view.ViewGroup;
 import android.widget.LinearLayout;
 import android.widget.PopupMenu;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -121,16 +122,7 @@ public class FragmentNoteTitles extends Fragment {
                                     Snackbar.make(view, String.format("Заметка \"%s\" редактируется", textView.getText()), Snackbar.LENGTH_LONG).show();
                                     break;
                                 case (R.id.popup_note_title_delete):
-                                    NotesMainContainer.deleteNote(textView.getText().toString()); // удаляем из БД
-                                    ((LinearLayout) requireView()).removeView(textView); // удаляем текущий tv
-                                    Snackbar.make(requireView(), String.format(getResources().getString(R.string.note_deleted_message), textView.getText()), Snackbar.LENGTH_LONG).show();
-                                    if (textView.getText().equals(currentNote)) { // если удалили текущую заметку
-                                        currentNote = Constants.DEFAULT_NOTE; // сбрасываем значение текущей заметки
-                                    }
-
-                                    if (getResources().getConfiguration().orientation == Configuration.ORIENTATION_LANDSCAPE) { // перерисовываем фрагмент
-                                        showLand();
-                                    }
+                                    deleteChosenNote(textView);
                                     break;
                             }
                             return false;
@@ -141,6 +133,35 @@ public class FragmentNoteTitles extends Fragment {
                 }
             });
         }
+    }
+
+    /**
+     * Удалаяет заметку, которая приходит в параметры
+     */
+    private void deleteChosenNote(TextView textView) {
+
+        new AlertDialog.Builder(requireContext())
+                .setTitle(R.string.confirmation_title)
+                .setMessage(R.string.delete_cofirmation_message)
+                .setPositiveButton(R.string.yes, (dialogInterface, i) -> {
+                    NotesMainContainer.deleteNote(textView.getText().toString()); // удаляем из БД
+                    ((LinearLayout) requireView()).removeView(textView); // удаляем текущий tv
+                    Snackbar.make(requireView(), String.format(getResources().getString(R.string.note_deleted_message), textView.getText()), Snackbar.LENGTH_LONG).show();
+                    if (textView.getText().equals(currentNote)) { // если удалили текущую заметку
+                        currentNote = Constants.DEFAULT_NOTE; // сбрасываем значение текущей заметки
+                    }
+
+                    if (getResources().getConfiguration().orientation == Configuration.ORIENTATION_LANDSCAPE) { // перерисовываем фрагмент
+                        showLand();
+                    }
+                })
+                .setNegativeButton(R.string.no, new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialogInterface, int i) {
+                        dialogInterface.dismiss();
+                    }
+                })
+                .show();
     }
 
     @Override

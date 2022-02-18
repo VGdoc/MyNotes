@@ -18,4 +18,8 @@
     <string name="note_already_exist">Такая заметка уже существует</string>
     <string name="empty_title_warning_message">Введите название заметки</string>
     <string name="note_deleted_message">"Заметка \"%s\" удалена"</string>
+    <string name="confirmation_title">Подтвердите действие:</string>
+    <string name="delete_cofirmation_message">Отменить удаление невозможно.\nПродолжить?</string>
+    <string name="yes">Да</string>
+    <string name="no">Нет</string>
 </resources>
