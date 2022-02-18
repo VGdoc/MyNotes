@@ -18,6 +18,8 @@ import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 
+import com.google.android.material.snackbar.Snackbar;
+
 public class FragmentNoteTitles extends Fragment {
 
     private String currentNote;
@@ -115,13 +117,13 @@ public class FragmentNoteTitles extends Fragment {
                         public boolean onMenuItemClick(MenuItem menuItem) {
                             switch (menuItem.getItemId()) {
                                 case (R.id.popup_note_title_edit):
-                                    //TODO
-                                    Toast.makeText(requireContext(), String.format("Заметка \"%s\" редактируется", textView.getText()), Toast.LENGTH_LONG).show();
+                                    //TODO + снекбар удалить, а значит и текст не надо выносить
+                                    Snackbar.make(view, String.format("Заметка \"%s\" редактируется", textView.getText()), Snackbar.LENGTH_LONG).show();
                                     break;
                                 case (R.id.popup_note_title_delete):
                                     NotesMainContainer.deleteNote(textView.getText().toString()); // удаляем из БД
                                     ((LinearLayout) requireView()).removeView(textView); // удаляем текущий tv
-
+                                    Snackbar.make(requireView(), String.format(getResources().getString(R.string.note_deleted_message), textView.getText()), Snackbar.LENGTH_LONG).show();
                                     if (textView.getText().equals(currentNote)) { // если удалили текущую заметку
                                         currentNote = Constants.DEFAULT_NOTE; // сбрасываем значение текущей заметки
                                     }

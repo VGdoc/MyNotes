@@ -52,11 +52,11 @@ public class FragmentAddNewNote extends Fragment {
                 switch (view.getId()){
                     case (R.id.btn_save_add_new_note):
                         if (editTextTitle.getText().toString().equals("")){ // Если строка пустая
-                            Toast.makeText(requireContext(),R.string.empty_title_warning_message,Toast.LENGTH_LONG).show();
+                            Toast.makeText(requireContext(),R.string.empty_title_warning_message,Toast.LENGTH_LONG).show();// тут тост
                             break;
                         }
-                        if (NotesMainContainer.contains(editTextTitle.getText().toString())){
-                            Toast.makeText(requireContext(),R.string.note_already_exist,Toast.LENGTH_LONG).show();
+                        if (NotesMainContainer.contains(editTextTitle.getText().toString())){ // если такая заметка уже существует
+                            Toast.makeText(requireContext(),R.string.note_already_exist,Toast.LENGTH_LONG).show(); // тут тост
                             break;
                         }
                         MainActivity.notesList.addNewNote(editTextTitle.getText().toString(), editTextContent.getText().toString());

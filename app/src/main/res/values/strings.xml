@@ -17,4 +17,5 @@
     <string name="cancel">Отменить</string>
     <string name="note_already_exist">Такая заметка уже существует</string>
     <string name="empty_title_warning_message">Введите название заметки</string>
+    <string name="note_deleted_message">"Заметка \"%s\" удалена"</string>
 </resources>
