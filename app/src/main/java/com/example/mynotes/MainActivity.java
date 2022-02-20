@@ -7,6 +7,7 @@ import android.view.MenuItem;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentManager;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -47,7 +48,7 @@ public class MainActivity extends AppCompatActivity {
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
         switch (item.getItemId()) {
             case (R.id.action_about):
-                //todo
+                new DialogAboutFragment().show(getSupportFragmentManager(),"");
                 break;
             case (R.id.action_settings):
                 getSupportFragmentManager().beginTransaction().replace(R.id.main_activity_fullscreen, FragmentSettings.newInstance()).addToBackStack("").commit();

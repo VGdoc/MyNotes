@@ -22,4 +22,7 @@
     <string name="delete_cofirmation_message">Отменить удаление невозможно.\nПродолжить?</string>
     <string name="yes">Да</string>
     <string name="no">Нет</string>
+    <string name="ok">Ok</string>
+    <string name="creators">Разработчики:</string>
+    <string name="version">Версия:</string>
 </resources>
