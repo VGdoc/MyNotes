@@ -10,18 +10,26 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.FrameLayout;
 import android.widget.LinearLayout;
 import android.widget.PopupMenu;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.constraintlayout.widget.ConstraintHelper;
+import androidx.constraintlayout.widget.ConstraintLayout;
+import androidx.coordinatorlayout.widget.CoordinatorLayout;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
+import androidx.fragment.app.FragmentTabHost;
 
 import com.google.android.material.snackbar.Snackbar;
 
-public class FragmentNoteTitles extends Fragment {
+import java.util.ArrayList;
+import java.util.List;
+
+public class FragmentNoteTitles extends Fragment implements NeedViewRefreshListener{
 
     private String currentNote;
 
@@ -189,14 +197,6 @@ public class FragmentNoteTitles extends Fragment {
         }
     }
 
-    /**
-     * Полностью очищает и перерисовывает фргмент
-     */
-    public void refreshContents() {
-
-        ((LinearLayout) requireView()).removeAllViews();
-        initView(requireView());
-    }
 
     /**
      * метод полностью очищает бекстек supportFragmentManager
@@ -206,5 +206,11 @@ public class FragmentNoteTitles extends Fragment {
             FragmentManager.BackStackEntry first = requireActivity().getSupportFragmentManager().getBackStackEntryAt(0);
             requireActivity().getSupportFragmentManager().popBackStack(first.getId(), FragmentManager.POP_BACK_STACK_INCLUSIVE);
         }
+    }
+
+    @Override
+    public void refreshView() {
+        ((LinearLayout)requireView()).removeAllViews();
+        initView(requireView());
     }
 }

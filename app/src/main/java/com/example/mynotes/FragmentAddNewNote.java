@@ -60,9 +60,9 @@ public class FragmentAddNewNote extends Fragment {
                             break;
                         }
                         MainActivity.notesList.addNewNote(editTextTitle.getText().toString(), editTextContent.getText().toString());
-                        requireActivity().recreate(); //КОСТЫЛЬ, чтобы отобразить новую заметку
+                        refreshViews();
                         //TODO: сделать сохранение состояния при повороте экрана
-                        // специально break не стоит, чтобы закрыть фрагмент, после добавления новой заметки
+                        break;
                     case (R.id.btn_cancel_add_new_note):
                         requireActivity().onBackPressed();
                         break;
@@ -72,6 +72,19 @@ public class FragmentAddNewNote extends Fragment {
 
         btnSave.setOnClickListener(listener);
         btnCancel.setOnClickListener(listener);
+    }
+
+    /**
+     * В методе рассылаются команды всем вью, в которых произошли изменения, чтобы они обновились.
+     * Реализовано с помощью интерфейса NeedViewRefreshListener
+     */
+    private void refreshViews() {
+        if (requireActivity().getSupportFragmentManager().findFragmentById(R.id.titles) != null &&
+                requireActivity().getSupportFragmentManager().findFragmentById(R.id.titles) instanceof FragmentNoteTitles){
+            ((FragmentNoteTitles) requireActivity().getSupportFragmentManager().findFragmentById(R.id.titles)).refreshView();
+        } else {
+            requireActivity().onBackPressed(); // чтобы закрыть фрагмент создания новой заметки
+        }
     }
 
     private void init(View view) {

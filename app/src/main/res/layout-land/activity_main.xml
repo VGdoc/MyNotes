@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:id="@+id/main_activity_fullscreen"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
@@ -27,50 +26,60 @@
 
     </com.google.android.material.appbar.AppBarLayout>
 
-    <FrameLayout
-        android:id="@+id/titles"
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/main_activity_fullscreen"
         android:layout_width="0dp"
         android:layout_height="0dp"
-        android:foregroundGravity="fill_horizontal"
-        android:theme="@style/NoteTitles"
-        app:layout_constraintBottom_toTopOf="@+id/navigation_block"
-        app:layout_constraintEnd_toStartOf="@+id/border"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/appBarLayout"
-        app:layout_constraintWidth_percent="0.39" />
-
-    <FrameLayout
-        android:id="@+id/border"
-        android:layout_width="0dp"
-        android:layout_height="0dp"
-        android:background="@color/purple_200"
-        android:foregroundGravity="fill_horizontal"
-        android:theme="@style/NoteTitles"
-        app:layout_constraintBottom_toTopOf="@+id/navigation_block"
-        app:layout_constraintEnd_toStartOf="@+id/contents"
-        app:layout_constraintStart_toEndOf="@+id/titles"
-        app:layout_constraintTop_toBottomOf="@+id/appBarLayout"
-        app:layout_constraintWidth_percent="0.01" />
-
-    <FrameLayout
-        android:id="@+id/contents"
-        android:layout_width="0dp"
-        android:layout_height="0dp"
-        android:layout_weight="0.6"
-        android:theme="@style/NoteTitles"
-        app:layout_constraintBottom_toTopOf="@+id/navigation_block"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="@+id/border"
-        app:layout_constraintTop_toBottomOf="@+id/appBarLayout"
-        app:layout_constraintWidth_percent="0.6" />
-
-    <!--    сюда будут добавлятся кнопки навигации и действий -->
-    <FrameLayout
-        android:id="@+id/navigation_block"
-        android:layout_width="match_parent"
-        android:layout_height="?actionBarSize"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent" />
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/appBarLayout">
 
+        <FrameLayout
+            android:id="@+id/titles"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:foregroundGravity="fill_horizontal"
+            android:theme="@style/NoteTitles"
+            app:layout_constraintBottom_toTopOf="@+id/navigation_block"
+            app:layout_constraintEnd_toStartOf="@+id/border"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintWidth_percent="0.39" />
+
+        <FrameLayout
+            android:id="@+id/border"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:background="@color/purple_200"
+            android:foregroundGravity="fill_horizontal"
+            android:theme="@style/NoteTitles"
+            app:layout_constraintBottom_toTopOf="@+id/navigation_block"
+            app:layout_constraintEnd_toStartOf="@+id/contents"
+            app:layout_constraintStart_toEndOf="@+id/titles"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintWidth_percent="0.01" />
+
+        <FrameLayout
+            android:id="@+id/contents"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:layout_weight="0.6"
+            android:theme="@style/NoteTitles"
+            app:layout_constraintBottom_toTopOf="@+id/navigation_block"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@+id/border"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintWidth_percent="0.6" />
+
+
+        <!--    сюда будут добавлятся кнопки навигации и действий -->
+        <FrameLayout
+            android:id="@+id/navigation_block"
+            android:layout_width="match_parent"
+            android:layout_height="?actionBarSize"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
 </androidx.constraintlayout.widget.ConstraintLayout>
