@@ -18,6 +18,7 @@ public class FragmentAddNewNote extends Fragment {
 
     Button btnSave, btnCancel;
     EditText editTextTitle, editTextContent;
+    NeedViewRefreshListener interfacePartOfFragment;
 
     public FragmentAddNewNote() {
     }
@@ -60,7 +61,7 @@ public class FragmentAddNewNote extends Fragment {
                             break;
                         }
                         MainActivity.notesList.addNewNote(editTextTitle.getText().toString(), editTextContent.getText().toString());
-                        refreshViews();
+                        refreshViews(interfacePartOfFragment);
                         //TODO: сделать сохранение состояния при повороте экрана
                         break;
                     case (R.id.btn_cancel_add_new_note):
@@ -78,10 +79,9 @@ public class FragmentAddNewNote extends Fragment {
      * В методе рассылаются команды всем вью, в которых произошли изменения, чтобы они обновились.
      * Реализовано с помощью интерфейса NeedViewRefreshListener
      */
-    private void refreshViews() {
-        if (requireActivity().getSupportFragmentManager().findFragmentById(R.id.titles) != null &&
-                requireActivity().getSupportFragmentManager().findFragmentById(R.id.titles) instanceof FragmentNoteTitles){
-            ((FragmentNoteTitles) requireActivity().getSupportFragmentManager().findFragmentById(R.id.titles)).refreshView();
+    private void refreshViews(NeedViewRefreshListener interfacePartOfFragment) {
+        if (interfacePartOfFragment != null){
+            interfacePartOfFragment.refreshView();
         } else {
             requireActivity().onBackPressed(); // чтобы закрыть фрагмент создания новой заметки
         }
@@ -92,5 +92,11 @@ public class FragmentAddNewNote extends Fragment {
         btnSave = view.findViewById(R.id.btn_save_add_new_note);
         editTextContent = view.findViewById(R.id.add_new_note_content_edit_text);
         editTextTitle = view.findViewById(R.id.add_new_note_title_edit_text);
+
+        if (requireActivity().getSupportFragmentManager().findFragmentById(R.id.titles) != null &&
+                requireActivity().getSupportFragmentManager().findFragmentById(R.id.titles) instanceof FragmentNoteTitles){
+
+            interfacePartOfFragment = (FragmentNoteTitles) requireActivity().getSupportFragmentManager().findFragmentById(R.id.titles);
+        }
     }
 }
